@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cn.evolvefield.mods.pvz.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "pvz.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
