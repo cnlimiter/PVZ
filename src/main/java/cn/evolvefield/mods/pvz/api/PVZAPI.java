@@ -2,6 +2,7 @@ package cn.evolvefield.mods.pvz.api;
 
 import cn.evolvefield.mods.pvz.api.interfaces.raid.*;
 import cn.evolvefield.mods.pvz.api.interfaces.types.*;
+import cn.evolvefield.mods.pvz.common.world.challenge.Challenge;
 import com.google.common.base.Suppliers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;

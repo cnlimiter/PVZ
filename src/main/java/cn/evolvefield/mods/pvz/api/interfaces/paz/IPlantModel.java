@@ -1,6 +1,9 @@
 package cn.evolvefield.mods.pvz.api.interfaces.paz;
 
+import cn.evolvefield.mods.pvz.common.entity.plant.PVZPlantEntity;
 import net.minecraft.client.model.EntityModel;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Project: PVZ-fabric
@@ -9,5 +12,6 @@ import net.minecraft.client.model.EntityModel;
  * Description:
  */
 public interface IPlantModel<T extends PVZPlantEntity> {
+    @OnlyIn(Dist.CLIENT)
     EntityModel<T> getPlantModel();
 }
