@@ -1,13 +1,12 @@
 package cn.evolvefield.mods.pvz.common.block.others;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LadderBlock;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
@@ -23,9 +22,9 @@ public class SteelLadderBlock extends LadderBlock {
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable IBlockReader blockReader, List<ITextComponent> textComponents, ITooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockReader, List<Component> textComponents, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, blockReader, textComponents, tooltipFlag);
-		textComponents.add(new TranslationTextComponent("tooltip.pvz.steel_ladder").withStyle(TextFormatting.ITALIC));
+		textComponents.add(Component.translatable("tooltip.pvz.steel_ladder").withStyle(ChatFormatting.ITALIC));
 	}
 
 }

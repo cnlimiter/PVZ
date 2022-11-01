@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PVZChallengeData extends SavedData {
 

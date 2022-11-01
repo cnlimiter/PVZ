@@ -1,16 +1,29 @@
 package cn.evolvefield.mods.pvz.init.registry;
 
 import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.common.block.cubes.ButterBlock;
+import cn.evolvefield.mods.pvz.common.block.cubes.OriginBlock;
+import cn.evolvefield.mods.pvz.common.block.misc.PVZLeavesBlock;
+import cn.evolvefield.mods.pvz.common.block.misc.PVZLogBlock;
+import cn.evolvefield.mods.pvz.common.block.ores.EssenceOreBlock;
+import cn.evolvefield.mods.pvz.common.block.ores.PVZOreBlock;
+import cn.evolvefield.mods.pvz.common.block.others.SteelLadderBlock;
+import cn.evolvefield.mods.pvz.common.block.plants.*;
+import cn.evolvefield.mods.pvz.common.block.special.*;
 import cn.evolvefield.mods.pvz.common.impl.EssenceTypes;
+import cn.evolvefield.mods.pvz.common.item.blockitem.LilyPadItem;
+import cn.evolvefield.mods.pvz.common.item.blockitem.SlotMachineItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
-import net.minecraft.world.level.block.LanternBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -92,7 +105,9 @@ public class BlockRegister {
                     NUT_LEAVES, NUT_LOG, NUT_SAPLING, CHOMPER,
                     LANTERN, FLOWER_POT, GOLD_TILE1, GOLD_TILE2, GOLD_TILE3, SILVER_SUNFLOWER_TROPHY, GOLD_SUNFLOWER_TROPHY, DIAMOND_SUNFLOWER_TROPHY
             ).forEach(block -> {
-                ev.register(ForgeRegistries.Keys.ITEMS, new BlockItem(block.get(), new Item.Properties().tab(PVZItemGroups.PVZ_MISC)).setRegistryName(ForgeRegistries.BLOCKS.getKey(block.get())));
+                ev.register(ForgeRegistries.Keys.ITEMS, (registerHelper) -> {
+                    registerHelper.register(ForgeRegistries.BLOCKS.getKey(block.get()), new BlockItem(block.get(), new Item.Properties().tab(PVZItemGroups.PVZ_MISC)));
+                });
             });
         }
 
@@ -101,11 +116,17 @@ public class BlockRegister {
         Arrays.asList(
                 STEEL_LADDER, SUN_CONVERTER, FRAGMENT_SPLICE, ESSENCE_ALTAR, CARD_FUSION_TABLE
         ).forEach(block -> {
-            ev.register(ForgeRegistries.Keys.ITEMS, new BlockItem(block.get(), new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL)).setRegistryName(ForgeRegistries.BLOCKS.getKey(block.get())));
+            ev.register(ForgeRegistries.Keys.ITEMS, (registerHelper) -> {
+                registerHelper.register(ForgeRegistries.BLOCKS.getKey(block.get()), new BlockItem(block.get(), new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL)));
+            });
         });
 
-        ev.register(ForgeRegistries.Keys.ITEMS, new LilyPadItem().setRegistryName(LILY_PAD.get().getRegistryName()));
-        ev.register(ForgeRegistries.Keys.ITEMS, new SlotMachineItem().setRegistryName(SLOT_MACHINE.get().getRegistryName()));
+        ev.register(ForgeRegistries.Keys.ITEMS, (registerHelper -> {
+            registerHelper.register(ForgeRegistries.BLOCKS.getKey(LILY_PAD.get()), new LilyPadItem());
+        }));
+        ev.register(ForgeRegistries.Keys.ITEMS, (registerHelper -> {
+            registerHelper.register(ForgeRegistries.BLOCKS.getKey(SLOT_MACHINE.get()), new SlotMachineItem());
+        }));
 
     }
 }

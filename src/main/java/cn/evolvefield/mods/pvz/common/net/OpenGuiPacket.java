@@ -1,7 +1,6 @@
 package cn.evolvefield.mods.pvz.common.net;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;

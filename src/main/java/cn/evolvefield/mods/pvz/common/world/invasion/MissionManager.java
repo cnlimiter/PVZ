@@ -9,8 +9,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 
-import java.util.Random;
-
 /**
  * Project: pvz
  * Author: cnlimiter

@@ -1,17 +1,19 @@
 package cn.evolvefield.mods.pvz.common.block.plants;
 
-import com.hungteen.pvz.common.item.ItemRegister;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.util.IItemProvider;
+import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.CropBlock;
 
-public class CornBlock extends CropsBlock {
+public class CornBlock extends CropBlock {
 
 	public CornBlock(Properties builder) {
 		super(builder);
 	}
 
+
+
 	@Override
-	protected IItemProvider getBaseSeedId() {
+	protected ItemLike getBaseSeedId() {
 		return ItemRegister.CORN_SEEDS.get();
 	}
 

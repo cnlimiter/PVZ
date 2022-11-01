@@ -1,10 +1,7 @@
 package cn.evolvefield.mods.pvz.utils;
 
 import cn.evolvefield.mods.pvz.common.enchantment.EnchantmentRegister;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Mth;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 

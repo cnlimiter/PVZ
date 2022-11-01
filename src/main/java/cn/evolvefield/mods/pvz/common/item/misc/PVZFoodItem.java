@@ -7,7 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 
 @SuppressWarnings("deprecation")
-public class PVZFoodPropertiesItem extends Item {
+public class PVZFoodItem extends Item {
 
 	public static final FoodProperties FAKE_BRAIN = (new FoodProperties.Builder()).nutrition(7).saturationMod(0.7F).build();
 
@@ -22,7 +22,7 @@ public class PVZFoodPropertiesItem extends Item {
 	public static final FoodProperties TACOS = (new FoodProperties.Builder()).nutrition(8).saturationMod(1f).effect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 1), 1.0f)
 			.effect(new MobEffectInstance(MobEffects.JUMP, 200, 1), 1.0f).effect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 1), 1.0f).effect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1), 1.0f).build();
 
-	public PVZFoodPropertiesItem(FoodProperties food) {
+	public PVZFoodItem(FoodProperties food) {
 		super(new Properties().tab(CreativeModeTab.TAB_FOOD).food(food));
 	}
 

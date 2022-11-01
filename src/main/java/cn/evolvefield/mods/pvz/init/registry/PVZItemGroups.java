@@ -1,5 +1,6 @@
 package cn.evolvefield.mods.pvz.init.registry;
 
+import cn.evolvefield.mods.pvz.common.enchantment.PVZEnchantmentTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
@@ -16,7 +17,7 @@ public class PVZItemGroups {
             return new ItemStack(ItemRegister.PEA.get());
         }
 
-    }.setEnchantmentCategories(PVZEnchantmentTypes.getPVZEnchantmentTypes());
+    }.setEnchantmentCategories(PVZEnchantmentTypes.getPVZEnchantmentCategorys());
 
     public static final CreativeModeTab PVZ_PLANT_CARD = new CreativeModeTab("pvz_plant_card") {
         @Override

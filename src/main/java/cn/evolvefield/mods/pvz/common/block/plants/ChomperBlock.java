@@ -1,32 +1,37 @@
 package cn.evolvefield.mods.pvz.common.block.plants;
 
-import com.hungteen.pvz.common.block.BlockRegister;
+import cn.evolvefield.mods.pvz.init.registry.BlockRegister;
+import cn.evolvefield.mods.pvz.utils.LevelUtil;
+import cn.evolvefield.mods.pvz.utils.MathUtil;
 import com.hungteen.pvz.common.misc.PVZEntityDamageSource;
-import com.hungteen.pvz.utils.MathUtil;
-import com.hungteen.pvz.utils.WorldUtil;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Items;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ToolType;
+import org.jetbrains.annotations.Nullable;
 
-public class ChomperBlock extends BushBlock{
+public class ChomperBlock extends BushBlock {
 
-	public static final DirectionProperty FACING = HorizontalBlock.FACING;
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	private static final VoxelShape SHAPE = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D);
 
 	public ChomperBlock() {
@@ -35,13 +40,13 @@ public class ChomperBlock extends BushBlock{
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, ISelectionContext context) {
 		return SHAPE;
 	}
 
 	@Override
-	public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-		if(entityIn instanceof AnimalEntity || entityIn instanceof PlayerEntity) {
+	public void entityInside(BlockState state, Level worldIn, BlockPos pos, Entity entityIn) {
+		if(entityIn instanceof Animal || entityIn instanceof Player) {
 			if(!worldIn.isClientSide) {
 				if(this.RANDOM.nextInt(50) == 0) {
 					entityIn.hurt(PVZEntityDamageSource.CHOMPER_PLANT, 8);
@@ -52,17 +57,17 @@ public class ChomperBlock extends BushBlock{
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) {
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player,
+								 InteractionHand handIn, BlockHitResult hit) {
 		if(player.getItemInHand(handIn).getItem() == Items.BONE_MEAL) {
 			if(worldIn.isClientSide) {
 				for(int i = 0 ;i < 5; ++ i) {
-					WorldUtil.spawnRandomSpeedParticle(worldIn, ParticleTypes.COMPOSTER, MathUtil.toVector(pos), 0.1F);
+					LevelUtil.spawnRandomSpeedParticle(worldIn, ParticleTypes.COMPOSTER, MathUtil.toVector(pos), 0.1F);
 				}
 			}
 			for(int i = -2; i <= 2; ++ i) {
 				for(int k = -2; k <= 2; ++ k) {
-					final BlockPos tmp = WorldUtil.getSuitableHeightPos(worldIn, pos.offset(i, 0, k)).below();
+					final BlockPos tmp = LevelUtil.getSuitableHeightPos(worldIn, pos.offset(i, 0, k)).below();
 					if(Math.abs(pos.getY() - tmp.getY()) < 5 && mayPlaceOn(worldIn.getBlockState(tmp), worldIn, tmp)) {
 						if(worldIn.isEmptyBlock(tmp.above())){
 							if(! worldIn.isClientSide) {
@@ -75,13 +80,12 @@ public class ChomperBlock extends BushBlock{
 					}
 				}
 			}
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
-
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Direction direction = context.getHorizontalDirection().getOpposite();
 		return this.defaultBlockState().setValue(FACING, direction);
 	}
@@ -98,13 +102,14 @@ public class ChomperBlock extends BushBlock{
 	}
 
 	@Override
-	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 
 	@Override
-	public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, MobEntity entity) {
-		return PathNodeType.DANGER_OTHER;
+	public @Nullable BlockPathTypes getAdjacentBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob, BlockPathTypes originalType) {
+		return BlockPathTypes.DANGER_OTHER;
 	}
+
 
 }

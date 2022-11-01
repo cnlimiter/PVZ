@@ -1,28 +1,27 @@
 package cn.evolvefield.mods.pvz.common.block.special;
 
-import com.hungteen.pvz.common.enchantment.misc.SunMendingEnchantment;
+import cn.evolvefield.mods.pvz.common.enchantment.misc.SunMendingEnchantment;
 import com.hungteen.pvz.common.item.tool.plant.SunStorageSaplingItem;
 import com.hungteen.pvz.common.tileentity.SunConverterTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.ChatFormatting;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.entity.player.Player;
+import net.minecraft.entity.player.ServerPlayer;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.network.chat.Component;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
@@ -37,31 +36,31 @@ public class SunConverterBlock extends Block {
 	}
 
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+	public TileEntity createTileEntity(BlockState state, BlockGetter world) {
 		return new SunConverterTileEntity();
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
+	public ActionResultType use(BlockState state, Level worldIn, BlockPos pos, Player player,
 			Hand handIn, BlockRayTraceResult hit) {
 		if (!worldIn.isClientSide && handIn == Hand.MAIN_HAND) {
 			SunConverterTileEntity te = (SunConverterTileEntity) worldIn.getBlockEntity(pos);
-			NetworkHooks.openGui((ServerPlayerEntity) player, te, pos);
+			NetworkHooks.openGui((ServerPlayer) player, te, pos);
 		}
 		return ActionResultType.SUCCESS;
 	}
 
 	@Override
-	public void appendHoverText(ItemStack itemStack, @Nullable IBlockReader blockReader, List<ITextComponent> textComponents, ITooltipFlag tooltipFlag) {
+	public void appendHoverText(ItemStack itemStack, @Nullable BlockGetter blockReader, List<Component> textComponents, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, blockReader, textComponents, tooltipFlag);
-		textComponents.add(new TranslationTextComponent("tooltip.pvz.sun_converter").withStyle(TextFormatting.ITALIC));
+		textComponents.add(Component.translatable("tooltip.pvz.sun_converter").withStyle(ChatFormatting.ITALIC));
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void onRemove(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileEntity tileentity = worldIn.getBlockEntity(pos);
+			var tileentity = worldIn.getBlockEntity(pos);
 			if (tileentity instanceof SunConverterTileEntity) {
 				SunConverterTileEntity te = (SunConverterTileEntity) worldIn.getBlockEntity(pos);
 				for (int i = 0; i < te.handler.getSlots(); ++i) {
@@ -81,9 +80,10 @@ public class SunConverterBlock extends Block {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState p_60555_, BlockGetter p_60556_, BlockPos p_60557_, CollisionContext p_60558_) {
 		return AABB;
 	}
+
 
 	@Override
 	public boolean hasTileEntity(BlockState state) {

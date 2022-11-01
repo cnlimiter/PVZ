@@ -1,9 +1,43 @@
 package cn.evolvefield.mods.pvz.init.registry;
 
 import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.api.enums.Colors;
+import cn.evolvefield.mods.pvz.api.interfaces.types.IPlantType;
+import cn.evolvefield.mods.pvz.common.impl.EssenceTypes;
+import cn.evolvefield.mods.pvz.common.impl.RankTypes;
+import cn.evolvefield.mods.pvz.common.impl.plant.CustomPlants;
+import cn.evolvefield.mods.pvz.common.impl.plant.MemePlants;
+import cn.evolvefield.mods.pvz.common.impl.plant.OtherPlants;
+import cn.evolvefield.mods.pvz.common.impl.plant.PVZPlants;
+import cn.evolvefield.mods.pvz.common.item.PVZItemTier;
+import cn.evolvefield.mods.pvz.common.item.PVZMiscItem;
+import cn.evolvefield.mods.pvz.common.item.PVZToolItem;
+import cn.evolvefield.mods.pvz.common.item.armor.*;
+import cn.evolvefield.mods.pvz.common.item.display.AlmanacItem;
+import cn.evolvefield.mods.pvz.common.item.display.ChallengeEnvelopeItem;
+import cn.evolvefield.mods.pvz.common.item.material.EssenceItem;
+import cn.evolvefield.mods.pvz.common.item.material.TemplateCardItem;
+import cn.evolvefield.mods.pvz.common.item.misc.PVZFoodItem;
+import cn.evolvefield.mods.pvz.common.item.misc.PVZSpawnEggItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.EdgarDollItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.GardenRakeItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.LawnMowerItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.bullet.FireCrackerItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.ImitaterCardItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.PlantCardItem;
+import cn.evolvefield.mods.pvz.common.item.tool.TimeKeyItem;
+import cn.evolvefield.mods.pvz.common.item.tool.ZombieDollItem;
+import cn.evolvefield.mods.pvz.common.item.tool.mc.OriginShovelItem;
+import cn.evolvefield.mods.pvz.common.item.tool.mc.OriginSwordItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.CardPackItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.PeaGunItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.ResourceCollectorItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.SunStorageSaplingItem;
+import cn.evolvefield.mods.pvz.common.item.tool.zombie.*;
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -137,7 +171,7 @@ public class ItemRegister {
     public static final RegistryObject<Item> REAL_BRAIN = ITEMS.register("real_brain", ()->new PVZFoodItem(PVZFoodItem.REAL_BRAIN));
     public static final RegistryObject<Item> CANDY = ITEMS.register("candy", ()->new PVZFoodItem(PVZFoodItem.CANDY));
     public static final RegistryObject<Item> CHOCOLATE = ITEMS.register("chocolate", ()->new PVZFoodItem(PVZFoodItem.CHOCOLATE));
-    public static final RegistryObject<Item> PEA_SOUP = ITEMS.register("pea_soup", ()->new SoupItem(new Item.Properties().tab(ItemGroup.TAB_FOOD).food(PVZFoodItem.PEA_SOUP).stacksTo(1)));
+    public static final RegistryObject<Item> PEA_SOUP = ITEMS.register("pea_soup", ()->new BowlFoodItem(new Item.Properties().tab(CreativeModeTab.TAB_FOOD).food(PVZFoodItem.PEA_SOUP).stacksTo(1)));
     public static final RegistryObject<Item> COOKED_BRAIN = ITEMS.register("cooked_brain", ()->new PVZFoodItem(PVZFoodItem.COOKED_BRAIN));
     public static final RegistryObject<Item> CABBAGE = ITEMS.register("cabbage", ()->new PVZFoodItem(PVZFoodItem.CABBAGE));
     public static final RegistryObject<Item> CORN = ITEMS.register("corn", ()->new PVZFoodItem(PVZFoodItem.CORN));
@@ -155,8 +189,8 @@ public class ItemRegister {
     public static final RegistryObject<Item> JACK_BOX = ITEMS.register("jack_box", JackBoxItem::new);
     public static final RegistryObject<Item> BALLOON = ITEMS.register("balloon", BalloonItem::new);
     public static final RegistryObject<Item> TARGET_ARROW = ITEMS.register("target_arrow", TargetArrowItem::new);
-    public static final RegistryObject<Item> WARNING_SIGN = ITEMS.register("warning_sign", () -> new SwordItem(ItemTier.IRON, 6, - 2.4F, new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL).stacksTo(1)));
-    public static final RegistryObject<Item> POLE = ITEMS.register("pole", () -> new AxeItem(ItemTier.IRON, 8, - 3F, new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL).stacksTo(1)));
+    public static final RegistryObject<Item> WARNING_SIGN = ITEMS.register("warning_sign", () -> new SwordItem(Tiers.IRON, 6, - 2.4F, new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL).stacksTo(1)));
+    public static final RegistryObject<Item> POLE = ITEMS.register("pole", () -> new AxeItem(Tiers.IRON, 8, - 3F, new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL).stacksTo(1)));
     public static final RegistryObject<Item> ORIGIN_SWORD = ITEMS.register("origin_sword", OriginSwordItem::new);
     public static final RegistryObject<Item> ORIGIN_SHOVEL = ITEMS.register("origin_shovel", OriginShovelItem::new);
     public static final RegistryObject<Item> ORIGIN_PICKAXE = ITEMS.register("origin_pickaxe", () -> new PickaxeItem(PVZItemTier.ORIGIN, 1, -2.8F, new Item.Properties().tab(PVZItemGroups.PVZ_USEFUL)));
@@ -180,28 +214,24 @@ public class ItemRegister {
     public static final RegistryObject<Item> TIME_KEY_TO_DEEP = ITEMS.register("time_key_to_deep", TimeKeyItem::new);
 
     /* armor */
-    public static final RegistryObject<Item> CONE_HEAD = ITEMS.register("cone_head", () -> new ConeArmorItem(ArmorMaterial.LEATHER, EquipmentSlotType.HEAD));
-    public static final RegistryObject<Item> BUCKET_HEAD = ITEMS.register("bucket_head", () -> new BucketArmorItem(ArmorMaterial.IRON, EquipmentSlotType.HEAD));
-    public static final RegistryObject<Item> FOOTBALL_HELMET = ITEMS.register("football_helmet", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlotType.HEAD));
-    public static final RegistryObject<Item> FOOTBALL_CHESTPLATE = ITEMS.register("football_chestplate", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlotType.CHEST));
-    public static final RegistryObject<Item> FOOTBALL_LEGGINGS = ITEMS.register("football_leggings", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlotType.LEGS));
-    public static final RegistryObject<Item> FOOTBALL_BOOTS = ITEMS.register("football_boots", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlotType.FEET));
-    public static final RegistryObject<Item> GIGA_HELMET = ITEMS.register("giga_helmet", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlotType.HEAD));
-    public static final RegistryObject<Item> GIGA_CHESTPLATE = ITEMS.register("giga_chestplate", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlotType.CHEST));
-    public static final RegistryObject<Item> GIGA_LEGGINGS = ITEMS.register("giga_leggings", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlotType.LEGS));
-    public static final RegistryObject<Item> GIGA_BOOTS = ITEMS.register("giga_boots", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlotType.FEET));
+    public static final RegistryObject<Item> CONE_HEAD = ITEMS.register("cone_head", () -> new ConeArmorItem(ArmorMaterials.LEATHER, EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> BUCKET_HEAD = ITEMS.register("bucket_head", () -> new BucketArmorItem(ArmorMaterials.IRON, EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> FOOTBALL_HELMET = ITEMS.register("football_helmet", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> FOOTBALL_CHESTPLATE = ITEMS.register("football_chestplate", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> FOOTBALL_LEGGINGS = ITEMS.register("football_leggings", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> FOOTBALL_BOOTS = ITEMS.register("football_boots", () -> new FootballArmorItem(PVZArmorMaterial.FOOTBALL, EquipmentSlot.FEET));
+    public static final RegistryObject<Item> GIGA_HELMET = ITEMS.register("giga_helmet", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlot.HEAD));
+    public static final RegistryObject<Item> GIGA_CHESTPLATE = ITEMS.register("giga_chestplate", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlot.CHEST));
+    public static final RegistryObject<Item> GIGA_LEGGINGS = ITEMS.register("giga_leggings", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlot.LEGS));
+    public static final RegistryObject<Item> GIGA_BOOTS = ITEMS.register("giga_boots", () -> new GigaArmorItem(PVZArmorMaterial.GIGA, EquipmentSlot.FEET));
 
     /* music disc */
     public static final RegistryObject<Item> ZOMBIE_ON_YOUR_LAWN = ITEMS.register("zombie_on_your_lawn", () -> {return
-            new MusicDiscItem(0, () -> {
-                return SoundRegister.ZOMBIE_ON_YOUR_LAWN.get();
-            }, new Item.Properties().stacksTo(1).tab(PVZItemGroups.PVZ_USEFUL).rarity(Rarity.RARE));
+            new RecordItem(0, SoundRegister.ZOMBIE_ON_YOUR_LAWN, new Item.Properties().stacksTo(1).tab(PVZItemGroups.PVZ_USEFUL).rarity(Rarity.RARE), 15);
     });
 
     public static final RegistryObject<Item> ZEN_GARDEN = ITEMS.register("zen_garden", () -> {return
-            new MusicDiscItem(0, () -> {
-                return SoundRegister.ZEN_GARDEN.get();
-            }, new Item.Properties().stacksTo(1).tab(PVZItemGroups.PVZ_USEFUL).rarity(Rarity.RARE));
+            new RecordItem(0, SoundRegister.ZEN_GARDEN, new Item.Properties().stacksTo(1).tab(PVZItemGroups.PVZ_USEFUL).rarity(Rarity.RARE), 15);
     });
 
     /*

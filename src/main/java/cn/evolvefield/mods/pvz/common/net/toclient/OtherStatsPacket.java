@@ -3,7 +3,6 @@ package cn.evolvefield.mods.pvz.common.net.toclient;
 import cn.evolvefield.mods.pvz.api.enums.PVZPacketTypes;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
 import com.hungteen.pvz.PVZMod;
-import com.hungteen.pvz.common.misc.PVZPacketTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 

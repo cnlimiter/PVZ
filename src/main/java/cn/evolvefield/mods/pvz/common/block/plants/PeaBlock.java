@@ -1,23 +1,23 @@
 package cn.evolvefield.mods.pvz.common.block.plants;
 
-import com.hungteen.pvz.common.item.ItemRegister;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.CropsBlock;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PeaBlock extends CropsBlock{
+public class PeaBlock extends CropBlock {
 
     private static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[]{
     		Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
@@ -34,27 +34,27 @@ public class PeaBlock extends CropsBlock{
 		super(builder);
 	}
 
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-    	return SHAPE_BY_AGE[state.getValue(this.getAgeProperty())];
-    }
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter p_52298_, BlockPos p_52299_, CollisionContext p_52300_) {
+		return SHAPE_BY_AGE[state.getValue(this.getAgeProperty())];
+	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ActionResultType use(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) {
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand p_60507_, BlockHitResult p_60508_) {
 		if(! worldIn.isClientSide) {
 			if(this.isMaxAge(state)) {
 				worldIn.addFreshEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(ItemRegister.PEA.get(), 1)));
 				worldIn.setBlockAndUpdate(pos, this.getStateForAge(0));
-				return ActionResultType.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return super.use(state, worldIn, pos, player, handIn, hit);
-	}
+		return super.use(state, worldIn, pos, player, p_60507_, p_60508_);	}
+
+
 
 	@Override
-	protected IItemProvider getBaseSeedId() {
+	protected ItemLike getBaseSeedId() {
 		return ItemRegister.PEA.get();
 	}
 }

@@ -2,7 +2,6 @@ package cn.evolvefield.mods.pvz.common.effect;
 
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.item.alchemy.Potion;
 
 /**
  * Project: pvz

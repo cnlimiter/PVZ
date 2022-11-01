@@ -1,7 +1,7 @@
 package cn.evolvefield.mods.pvz.common.block.ores;
 
-import com.hungteen.pvz.api.types.IEssenceType;
-import net.minecraft.block.Blocks;
+import cn.evolvefield.mods.pvz.api.interfaces.types.IEssenceType;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.ToolType;
 
 public class EssenceOreBlock extends PVZOreBlock {

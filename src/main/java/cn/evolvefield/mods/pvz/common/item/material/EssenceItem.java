@@ -1,8 +1,8 @@
 package cn.evolvefield.mods.pvz.common.item.material;
 
-import com.hungteen.pvz.api.types.IEssenceType;
-import com.hungteen.pvz.common.item.PVZItemGroups;
-import net.minecraft.item.Item;
+import cn.evolvefield.mods.pvz.api.interfaces.types.IEssenceType;
+import cn.evolvefield.mods.pvz.init.registry.PVZItemGroups;
+import net.minecraft.world.item.Item;
 
 public class EssenceItem extends Item {
 

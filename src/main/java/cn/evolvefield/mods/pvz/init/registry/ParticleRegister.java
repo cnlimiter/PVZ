@@ -1,8 +1,6 @@
 package cn.evolvefield.mods.pvz.init.registry;
 
 import cn.evolvefield.mods.pvz.Static;
-import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraftforge.registries.DeferredRegister;

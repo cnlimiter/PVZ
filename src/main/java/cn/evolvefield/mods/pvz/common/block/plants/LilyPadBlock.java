@@ -5,26 +5,27 @@ import com.hungteen.pvz.common.entity.plant.spear.CatTailEntity;
 import com.hungteen.pvz.common.entity.zombie.PVZZombieEntity;
 import com.hungteen.pvz.common.entity.zombie.pool.ZombieDolphinEntity;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.pathfinding.PathNodeType;
-import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer.Builder;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 
 public class LilyPadBlock extends BushBlock {
 
-	public static final DirectionProperty FACING = HorizontalBlock.FACING;
+	public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 	protected static final VoxelShape LILY_PAD_AABB = Block.box(1.0D, 0.0D, 1.0D, 15.0D, 1.5D, 15.0D);
 
 	public LilyPadBlock() {
@@ -47,17 +48,17 @@ public class LilyPadBlock extends BushBlock {
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, CollisionContext context) {
 		return LILY_PAD_AABB;
 	}
 
 	@SuppressWarnings("deprecation")
-	@Override
-	protected boolean mayPlaceOn(BlockState state, IBlockReader reader, BlockPos pos) {
+	@BlockGetter
+	protected boolean mayPlaceOn(BlockState state, BlockGetter reader, BlockPos pos) {
 	    return ! state.isAir(reader, pos);
 	}
 
-	public BlockState getStateForPlacement(PlayerEntity player) {
+	public BlockState getStateForPlacement(Player player) {
 		if(player == null) return this.defaultBlockState();
 		return this.defaultBlockState().setValue(FACING, player.getDirection().getOpposite());
 	}
@@ -67,7 +68,7 @@ public class LilyPadBlock extends BushBlock {
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		Direction direction = context.getHorizontalDirection().getOpposite();
 		return this.defaultBlockState().setValue(FACING, direction);
 	}
@@ -84,13 +85,13 @@ public class LilyPadBlock extends BushBlock {
 	}
 
 	@Override
-	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
 
 	@Override
-	public PathNodeType getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, MobEntity entity) {
-		return PathNodeType.TRAPDOOR;
+	public @Nullable BlockPathTypes getAdjacentBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob, BlockPathTypes originalType) {
+		return BlockPathTypes.TRAPDOOR;
 	}
 
 }

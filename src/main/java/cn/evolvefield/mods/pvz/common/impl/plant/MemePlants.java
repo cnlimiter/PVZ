@@ -1,12 +1,13 @@
 package cn.evolvefield.mods.pvz.common.impl.plant;
 
-import com.hungteen.pvz.PVZMod;
-import com.hungteen.pvz.api.PVZAPI;
-import com.hungteen.pvz.api.types.IPlantType;
+import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.api.PVZAPI;
+import cn.evolvefield.mods.pvz.api.interfaces.types.IPlantType;
+import cn.evolvefield.mods.pvz.common.impl.*;
+import cn.evolvefield.mods.pvz.init.registry.EntityRegister;
+import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
 import com.hungteen.pvz.client.model.entity.plant.magic.StrangeCatModel;
-import com.hungteen.pvz.common.entity.EntityRegister;
 import com.hungteen.pvz.common.impl.*;
-import com.hungteen.pvz.common.item.ItemRegister;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +49,6 @@ public final class MemePlants extends PlantType {
 
 	@Override
 	public String getModID() {
-		return PVZMod.MOD_ID;
+		return Static.MOD_ID;
 	}
 }

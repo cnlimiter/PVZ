@@ -1,6 +1,6 @@
 package cn.evolvefield.mods.pvz.common.block.special;
 
-import com.hungteen.pvz.common.block.AbstractFacingBlock;
+import cn.evolvefield.mods.pvz.common.block.AbstractFacingBlock;
 import com.hungteen.pvz.common.tileentity.SunFlowerTrophyTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
