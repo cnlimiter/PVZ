@@ -1,17 +1,17 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.common.block.BlockRegister;
-import com.hungteen.pvz.common.item.material.EssenceItem;
-import com.hungteen.pvz.common.item.tool.plant.SunStorageSaplingItem;
-import com.hungteen.pvz.common.recipe.FusionRecipe;
-import com.hungteen.pvz.common.recipe.RecipeRegister;
-import com.hungteen.pvz.common.tileentity.CardFusionTileEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
+import cn.evolvefield.mods.pvz.common.item.material.EssenceItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.SunStorageSaplingItem;
+import cn.evolvefield.mods.pvz.common.recipe.FusionRecipe;
+import cn.evolvefield.mods.pvz.common.tileentity.CardFusionTileEntity;
+import cn.evolvefield.mods.pvz.init.registry.BlockRegister;
+import cn.evolvefield.mods.pvz.init.registry.RecipeRegister;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.Optional;
@@ -19,15 +19,15 @@ import java.util.Optional;
 public class CardFusionContainer extends PVZContainer {
 
 	public final CardFusionTileEntity te;
-	private final CraftingInventory craftSlots = new CraftingInventory(this, 3, 3);
-	private final IWorldPosCallable access;
+	private final CraftingContainer craftSlots = new CraftingContainer(this, 3, 3);
+	private final ContainerLevelAccess access;
 	private final Player player;
 
 	public CardFusionContainer(int id, Player player, BlockPos pos) {
 		super(ContainerRegister.CARD_FUSION.get(), id);
 		this.te = (CardFusionTileEntity) player.level.getBlockEntity(pos);
 		this.player = player;
-		this.access = IWorldPosCallable.create(player.level, pos);
+		this.access = ContainerLevelAccess.create(player.level, pos);
 		if(this.te == null) {
 			System.out.println("Error: Open Card Fusion GUI !");
 			return ;

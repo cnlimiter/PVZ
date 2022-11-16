@@ -5,14 +5,13 @@ import com.hungteen.pvz.common.item.ItemRegister;
 import com.hungteen.pvz.common.item.tool.plant.PeaGunItem;
 import com.hungteen.pvz.common.misc.tag.PVZItemTags;
 import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
 public class PeaGunContainer extends Container {
 
-	private Inventory backpack;
+	private Container backpack;
 	private final Player player;
 	private final ItemStack stack;
 

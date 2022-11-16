@@ -8,7 +8,7 @@ import com.hungteen.pvz.common.world.structure.StructureRegister;
 import com.hungteen.pvz.utils.EntityUtil;
 import com.hungteen.pvz.utils.StringUtil;
 import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -38,7 +38,7 @@ public class YetiHouseComponents {
 
 		private static final IStructurePieceType type = StructureRegister.YETI_HOUSE_PIECE;
 
-		public YetiHouseComponent(TemplateManager manager, CompoundNBT nbt) {
+		public YetiHouseComponent(TemplateManager manager, CompoundTag nbt) {
 			super(type, manager, nbt);
 		}
 

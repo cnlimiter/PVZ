@@ -1,9 +1,6 @@
 package cn.evolvefield.mods.pvz.common.container;
 
 import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
-import com.hungteen.pvz.common.item.ItemRegister;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;

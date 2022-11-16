@@ -6,7 +6,7 @@ import cn.evolvefield.mods.pvz.init.registry.EntityRegister;
 import cn.evolvefield.mods.pvz.init.registry.SoundRegister;
 import cn.evolvefield.mods.pvz.utils.EntityUtil;
 import net.minecraft.entity.*;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -92,7 +92,7 @@ public class MelonEntity extends PultBulletEntity {
 	}
 
 	@Override
-	public void readAdditionalSaveData(CompoundNBT compound) {
+	public void readAdditionalSaveData(CompoundTag compound) {
 		super.readAdditionalSaveData(compound);
 		if(compound.contains("melon_state")) {
 			this.setMelonState(MelonStates.values()[compound.getInt("melon_state")]);
@@ -100,7 +100,7 @@ public class MelonEntity extends PultBulletEntity {
 	}
 
 	@Override
-	public void addAdditionalSaveData(CompoundNBT compound) {
+	public void addAdditionalSaveData(CompoundTag compound) {
 		super.addAdditionalSaveData(compound);
 		compound.putInt("melon_state", this.getMelonState().ordinal());
 	}

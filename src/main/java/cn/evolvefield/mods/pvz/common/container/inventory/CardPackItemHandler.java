@@ -1,8 +1,6 @@
 package cn.evolvefield.mods.pvz.common.container.inventory;
 
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
-import com.hungteen.pvz.utils.PlayerUtil;
-import net.minecraft.entity.player.Player;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.items.ItemStackHandler;
 

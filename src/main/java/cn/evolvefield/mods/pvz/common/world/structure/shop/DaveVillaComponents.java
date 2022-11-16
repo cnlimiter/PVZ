@@ -1,5 +1,8 @@
 package cn.evolvefield.mods.pvz.common.world.structure.shop;
 
+import cn.evolvefield.mods.pvz.common.world.structure.PVZTemplateComponent;
+import cn.evolvefield.mods.pvz.common.world.structure.StructureRegister;
+import cn.evolvefield.mods.pvz.utils.StringUtil;
 import com.hungteen.pvz.common.entity.EntityRegister;
 import com.hungteen.pvz.common.entity.npc.CrazyDaveEntity;
 import com.hungteen.pvz.common.entity.npc.PennyEntity;
@@ -13,7 +16,9 @@ import com.hungteen.pvz.utils.EntityUtil;
 import com.hungteen.pvz.utils.StringUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -26,9 +31,15 @@ import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.structure.StructurePiece;
 
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.world.level.block.Rotation.*;
 
 public class DaveVillaComponents {
 
@@ -76,7 +87,7 @@ public class DaveVillaComponents {
 
         private static final IStructurePieceType type = StructureRegister.DAVE_VILLA_PIECE;
 
-		public DaveVillaComponent(TemplateManager manager, CompoundNBT nbt) {
+		public DaveVillaComponent(TemplateManager manager, CompoundTag nbt) {
 			super(type, manager, nbt);
 		}
 
@@ -89,7 +100,7 @@ public class DaveVillaComponents {
 		}
 
 		@Override
-		protected void addAdditionalSaveData(CompoundNBT tagCompound) {
+		protected void addAdditionalSaveData(CompoundTag tagCompound) {
 			super.addAdditionalSaveData(tagCompound);
 			tagCompound.putString("Template", this.res.toString());
 	        tagCompound.putString("Rot", this.rotation.name());
@@ -146,6 +157,7 @@ public class DaveVillaComponents {
 				this.createChest(worldIn, sbb, rand, pos, PVZLoot.DAVE_VILLA_CHEST, null);
 			}
 		}
+
 
 		@Override
 		public boolean postProcess(ISeedReader worldIn, StructureManager manager, ChunkGenerator chunkGeneratorIn, Random randomIn,

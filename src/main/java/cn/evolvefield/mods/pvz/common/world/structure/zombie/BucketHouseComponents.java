@@ -7,7 +7,7 @@ import com.hungteen.pvz.common.world.structure.StructureRegister;
 import com.hungteen.pvz.utils.StringUtil;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -39,7 +39,7 @@ public class BucketHouseComponents {
 
 		private static final IStructurePieceType type = StructureRegister.BUCKET_HOUSE_PIECE;
 
-		public BucketHouseComponent(TemplateManager manager, CompoundNBT nbt) {
+		public BucketHouseComponent(TemplateManager manager, CompoundTag nbt) {
 			super(type, manager, nbt);
 		}
 

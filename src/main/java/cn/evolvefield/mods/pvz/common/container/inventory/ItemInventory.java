@@ -1,18 +1,11 @@
 package cn.evolvefield.mods.pvz.common.container.inventory;
 
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.util.Constants;
 
 public class ItemInventory extends SimpleContainer {
 

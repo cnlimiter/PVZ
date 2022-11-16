@@ -1,18 +1,18 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.api.types.IPAZType;
-import com.hungteen.pvz.api.types.ISkillType;
-import com.hungteen.pvz.common.impl.SkillTypes;
-import com.hungteen.pvz.common.item.material.EssenceItem;
-import com.hungteen.pvz.common.item.spawn.card.ImitaterCardItem;
-import com.hungteen.pvz.common.item.spawn.card.SummonCardItem;
-import com.hungteen.pvz.common.tileentity.EssenceAltarTileEntity;
-import com.hungteen.pvz.utils.EntityUtil;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
+import cn.evolvefield.mods.pvz.api.interfaces.types.IPAZType;
+import cn.evolvefield.mods.pvz.api.interfaces.types.ISkillType;
+import cn.evolvefield.mods.pvz.common.impl.SkillTypes;
+import cn.evolvefield.mods.pvz.common.item.material.EssenceItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.ImitaterCardItem;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.SummonCardItem;
+import cn.evolvefield.mods.pvz.common.tileentity.EssenceAltarTileEntity;
+import cn.evolvefield.mods.pvz.utils.EntityUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -133,7 +133,7 @@ public class EssenceAltarContainer extends PVZContainer{
 		if(getPAZType().isPresent()){
 			final IPAZType type = getPAZType().get();
 			if(type.getEssence().getEssenceItem().equals(getEssence().getItem()) && getEssence().getCount() >= LEARN_COST){
-				if(type.getRank().getMaterial().contains(getMaterial().getItem()) && getMaterial().getCount() >= LEARN_COST){
+				if(getMaterial().is(type.getRank().getMaterial()) && getMaterial().getCount() >= LEARN_COST){
 					return true;
 				}
 			}

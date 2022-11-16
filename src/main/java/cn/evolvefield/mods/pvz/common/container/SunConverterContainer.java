@@ -1,15 +1,15 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.common.block.special.SunConverterBlock;
-import com.hungteen.pvz.common.tileentity.SunConverterTileEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import cn.evolvefield.mods.pvz.common.block.special.SunConverterBlock;
+import cn.evolvefield.mods.pvz.common.tileentity.SunConverterTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class SunConverterContainer extends Container {
+public class SunConverterContainer extends AbstractContainerMenu {
 
 	@SuppressWarnings("unused")
 	private final Player player;
@@ -36,11 +36,11 @@ public class SunConverterContainer extends Container {
 		}
 		for(int i = 0; i < 3; ++ i) {
 			for(int j = 0; j < 9; ++ j) {
-				this.addSlot(new Slot(player.inventory, j + i * 9 + 9, 8 + 18 * j, 84 + 18 * i));
+				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + 18 * j, 84 + 18 * i));
 			}
 		}
 		for(int i = 0; i < 9; ++ i) {
-			this.addSlot(new Slot(player.inventory, i, 8 + 18 * i, 142));
+			this.addSlot(new Slot(player.getInventory(), i, 8 + 18 * i, 142));
 		}
 	}
 

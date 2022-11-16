@@ -1,5 +1,8 @@
 package cn.evolvefield.mods.pvz.common.item.tool.zombie;
 
+import cn.evolvefield.mods.pvz.common.datapack.LotteryTypeLoader;
+import cn.evolvefield.mods.pvz.common.tileentity.SlotMachineTileEntity;
+import cn.evolvefield.mods.pvz.init.config.PVZConfig;
 import cn.evolvefield.mods.pvz.init.registry.PVZItemGroups;
 import cn.evolvefield.mods.pvz.init.registry.SoundRegister;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
@@ -31,7 +34,7 @@ public class JackBoxItem extends Item {
 		if(! worldIn.isClientSide) {
 			if(playerIn.getRandom().nextInt(PVZConfig.COMMON_CONFIG.ItemSettings.JackBoxSurpriseChance.get()) == 0){
 				PlayerUtil.playClientSound(playerIn, SoundRegister.JACK_SURPRISE.get());
-				Explosion.Mode mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(playerIn.level, playerIn) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+				Explosion.BlockInteraction mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(playerIn.level, playerIn) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
 				playerIn.level.explode(playerIn, playerIn.getX(), playerIn.getY(), playerIn.getZ(), 3f, mode);
 			} else {
 				PlayerUtil.playClientSound(playerIn, SoundRegister.JACK_MUSIC.get());

@@ -2,6 +2,7 @@ package cn.evolvefield.mods.pvz.common.datapack;
 
 import cn.evolvefield.mods.pvz.Static;
 import cn.evolvefield.mods.pvz.api.PVZAPI;
+import cn.evolvefield.mods.pvz.common.tileentity.SlotMachineTileEntity;
 import com.google.gson.*;
 import com.hungteen.pvz.PVZMod;
 import com.hungteen.pvz.common.tileentity.SlotMachineTileEntity;
@@ -54,7 +55,7 @@ public class LotteryTypeLoader extends SimpleJsonResourceReloadListener {
 
             final SlotMachineTileEntity.LotteryType lotteryType = new SlotMachineTileEntity.LotteryType(res);
             final String str = GsonHelper.getAsString(jsonObject, "type", "normal");
-            final LotteryTypes lotteryTypes = LotteryTypes.valueOf(str.toUpperCase());
+            final SlotMachineTileEntity.LotteryTypes lotteryTypes = SlotMachineTileEntity.LotteryTypes.valueOf(str.toUpperCase());
             lotteryType.setLotteryTypes(lotteryTypes);
 
             final int sunCost = GsonHelper.getAsInt(jsonObject, "sun_cost", 25);
@@ -66,10 +67,10 @@ public class LotteryTypeLoader extends SimpleJsonResourceReloadListener {
             final int tradeWeight = GsonHelper.getAsInt(jsonObject, "trade_weight", 100);
             lotteryType.setTradeWeight(tradeWeight);
 
-            if (lotteryTypes == LotteryTypes.ALL_PLANT_CARDS) {
+            if (lotteryTypes == SlotMachineTileEntity.LotteryTypes.ALL_PLANT_CARDS) {
                 PVZAPI.get().getPlants().forEach(p -> {
                     p.getEnjoyCard().ifPresent(card -> {
-                        final SlotType type = new SlotType(SlotTypes.ITEM);
+                        final SlotMachineTileEntity.SlotType type = new SlotMachineTileEntity.SlotType(SlotMachineTileEntity.SlotTypes.ITEM);
                         type.setItemStack(new ItemStack(card));
                         lotteryType.addSlotType(type, 10);
                     });
@@ -82,10 +83,10 @@ public class LotteryTypeLoader extends SimpleJsonResourceReloadListener {
 //							lotteryType.addSlotType(type, 10);
 //						});
 //					});
-            } else if (lotteryTypes == LotteryTypes.ALL_SUMMON_CARDS) {
+            } else if (lotteryTypes == SlotMachineTileEntity.LotteryTypes.ALL_SUMMON_CARDS) {
                 PVZAPI.get().getPAZs().forEach(p -> {
                     p.getEnjoyCard().ifPresent(card -> {
-                        final SlotType type = new SlotType(SlotTypes.ITEM);
+                        final SlotMachineTileEntity.SlotType type = new SlotMachineTileEntity.SlotType(SlotMachineTileEntity.SlotTypes.ITEM);
                         type.setItemStack(new ItemStack(card));
                         lotteryType.addSlotType(type, 10);
                     });
@@ -98,10 +99,10 @@ public class LotteryTypeLoader extends SimpleJsonResourceReloadListener {
                     final JsonObject obj = e.getAsJsonObject();
 
                     final String string = GsonHelper.getAsString(obj, "type", "item");
-                    final SlotTypes type = SlotTypes.valueOf(string.toUpperCase());
-                    final SlotType slotType = new SlotType(type);
+                    final SlotMachineTileEntity.SlotTypes type = SlotMachineTileEntity.SlotTypes.valueOf(string.toUpperCase());
+                    final SlotMachineTileEntity.SlotType slotType = new SlotMachineTileEntity.SlotType(type);
 
-                    if (type == SlotTypes.ITEM) {
+                    if (type == SlotMachineTileEntity.SlotTypes.ITEM) {
                         Item item = GsonHelper.getAsItem(obj, "item");
                         if (obj.has("data")) {
                             throw new JsonParseException("Disallowed data tag found");

@@ -1,13 +1,13 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.common.tileentity.SlotMachineTileEntity;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import cn.evolvefield.mods.pvz.common.tileentity.SlotMachineTileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class SlotMachineContainer extends Container {
+public class SlotMachineContainer extends AbstractContainerMenu {
 
 	public final SlotMachineTileEntity te;
 	public final Player player;
@@ -24,11 +24,11 @@ public class SlotMachineContainer extends Container {
 		this.te.setPlayer(player);
 		for(int i = 0; i < 3; ++ i) {
 			for(int j = 0; j < 9; ++ j) {
-				this.addSlot(new Slot(player.inventory, j + i * 9 + 9, 8 + 18 * j, 145 + 18 * i));
+				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + 18 * j, 145 + 18 * i));
 			}
 		}
 		for(int i = 0; i < 9; ++ i) {
-			this.addSlot(new Slot(player.inventory, i, 8 + 18 * i, 203));
+			this.addSlot(new Slot(player.getInventory(), i, 8 + 18 * i, 203));
 		}
 	}
 

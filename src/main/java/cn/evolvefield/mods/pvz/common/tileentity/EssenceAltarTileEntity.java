@@ -6,7 +6,7 @@ import net.minecraft.entity.player.Player;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -32,7 +32,7 @@ public class EssenceAltarTileEntity extends PVZTileEntity implements INamedConta
    	}
 
     @Override
-    public void load(BlockState state, CompoundNBT compound) {
+    public void load(BlockState state, CompoundTag compound) {
         super.load(state, compound);
         if (compound.contains("essence_altar_slots")) {
             this.handler.deserializeNBT(compound.getCompound("essence_altar_slots"));
@@ -43,7 +43,7 @@ public class EssenceAltarTileEntity extends PVZTileEntity implements INamedConta
     }
 
     @Override
-    public CompoundNBT save(CompoundNBT compound) {
+    public CompoundTag save(CompoundTag compound) {
         compound.put("essence_altar_slots", this.handler.serializeNBT());
         compound.putInt("tick", this.tick);
         return super.save(compound);

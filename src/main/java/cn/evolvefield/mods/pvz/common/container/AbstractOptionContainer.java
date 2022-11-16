@@ -1,7 +1,5 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import net.minecraft.inventory.container.MenuType;
-import net.minecraft.inventory.container.Slot;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 

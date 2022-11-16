@@ -13,6 +13,7 @@ import cn.evolvefield.mods.pvz.common.datapack.LotteryTypeLoader;
 import cn.evolvefield.mods.pvz.common.datapack.TransactionTypeLoader;
 import cn.evolvefield.mods.pvz.common.impl.challenge.amount.ConstantAmount;
 import cn.evolvefield.mods.pvz.common.item.display.ChallengeEnvelopeItem;
+import cn.evolvefield.mods.pvz.common.tileentity.SlotMachineTileEntity;
 import cn.evolvefield.mods.pvz.common.world.challenge.ChallengeManager;
 import cn.evolvefield.mods.pvz.init.registry.BlockRegister;
 import cn.evolvefield.mods.pvz.init.registry.ItemRegister;

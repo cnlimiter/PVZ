@@ -1,18 +1,18 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.common.block.BlockRegister;
-import com.hungteen.pvz.common.item.spawn.card.SummonCardItem;
-import com.hungteen.pvz.common.item.tool.plant.SunStorageSaplingItem;
-import com.hungteen.pvz.common.recipe.FragmentRecipe;
-import com.hungteen.pvz.common.recipe.RecipeRegister;
-import com.hungteen.pvz.common.tileentity.FragmentSpliceTileEntity;
-import com.hungteen.pvz.utils.PlayerUtil;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.math.BlockPos;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.SummonCardItem;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.SunStorageSaplingItem;
+import cn.evolvefield.mods.pvz.common.recipe.FragmentRecipe;
+import cn.evolvefield.mods.pvz.common.tileentity.FragmentSpliceTileEntity;
+import cn.evolvefield.mods.pvz.init.registry.BlockRegister;
+import cn.evolvefield.mods.pvz.init.registry.RecipeRegister;
+import cn.evolvefield.mods.pvz.utils.PlayerUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -21,15 +21,15 @@ import java.util.Optional;
 public class FragmentSpliceContainer extends PVZContainer {
 
 	public final FragmentSpliceTileEntity te;
-	private final CraftingInventory craftSlots = new CraftingInventory(this, 5, 5);
-	private final IWorldPosCallable access;
+	private final CraftingContainer craftSlots = new CraftingContainer(this, 5, 5);
+	private final ContainerLevelAccess access;
 	private final Player player;
 
 	public FragmentSpliceContainer(int id, Player player, BlockPos pos) {
 		super(ContainerRegister.FRAGMENT_SPLICE.get(), id);
 		this.te = (FragmentSpliceTileEntity) player.level.getBlockEntity(pos);
 		this.player = player;
-		this.access = IWorldPosCallable.create(player.level, pos);
+		this.access = ContainerLevelAccess.create(player.level, pos);
 		if(this.te == null) {
 			System.out.println("Error: Open Fragment Splice GUI !");
 			return ;
@@ -60,11 +60,11 @@ public class FragmentSpliceContainer extends PVZContainer {
 		// player inventory
 		for (int k = 0; k < 3; ++ k) {
 			for (int i1 = 0; i1 < 9; ++ i1) {
-				this.addSlot(new Slot(player.inventory, i1 + k * 9 + 9, 25 + i1 * 18, 143 + k * 18));
+				this.addSlot(new Slot(player.getInventory(), i1 + k * 9 + 9, 25 + i1 * 18, 143 + k * 18));
 			}
 		}
 		for (int l = 0; l < 9; ++ l) {
-			this.addSlot(new Slot(player.inventory, l, 25 + l * 18, 201));
+			this.addSlot(new Slot(player.getInventory(), l, 25 + l * 18, 201));
 		}
 	}
 
