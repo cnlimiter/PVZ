@@ -38,7 +38,7 @@ public class PVZPlayerEvents {
 				}
 			});
 		}
-		PVZMod.PROXY.climbUp();
+		Static.PROXY.climbUp();
 	}
 
 	@SubscribeEvent(priority = EventPriority.HIGHEST)

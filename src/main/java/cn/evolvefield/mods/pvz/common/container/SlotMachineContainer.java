@@ -1,6 +1,7 @@
 package cn.evolvefield.mods.pvz.common.container;
 
 import cn.evolvefield.mods.pvz.common.tileentity.SlotMachineTileEntity;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

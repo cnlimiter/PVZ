@@ -5,6 +5,7 @@ import cn.evolvefield.mods.pvz.common.item.tool.plant.SunStorageSaplingItem;
 import cn.evolvefield.mods.pvz.common.recipe.FusionRecipe;
 import cn.evolvefield.mods.pvz.common.tileentity.CardFusionTileEntity;
 import cn.evolvefield.mods.pvz.init.registry.BlockRegister;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
 import cn.evolvefield.mods.pvz.init.registry.RecipeRegister;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;

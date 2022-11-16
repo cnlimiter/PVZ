@@ -2,7 +2,6 @@ package cn.evolvefield.mods.pvz.common.net.toclient;
 
 import cn.evolvefield.mods.pvz.api.enums.Resources;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
-import com.hungteen.pvz.PVZMod;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -31,7 +30,7 @@ public class PlayerStatsPacket{
 	public static class Handler {
 		public static void onMessage(PlayerStatsPacket message, Supplier<NetworkEvent.Context> ctx) {
 			ctx.get().enqueueWork(() -> {
-				PlayerUtil.setResource(PVZMod.PROXY.getPlayer(), Resources.values()[message.type], message.data);
+				PlayerUtil.setResource(Static.PROXY.getPlayer(), Resources.values()[message.type], message.data);
 			});
 		    ctx.get().setPacketHandled(true);
 	    }

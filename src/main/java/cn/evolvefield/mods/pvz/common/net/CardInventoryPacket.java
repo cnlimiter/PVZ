@@ -3,7 +3,6 @@ package cn.evolvefield.mods.pvz.common.net;
 import cn.evolvefield.mods.pvz.Static;
 import cn.evolvefield.mods.pvz.api.enums.Resources;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
-import com.hungteen.pvz.PVZMod;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.item.ItemStack;
@@ -38,10 +37,10 @@ public class CardInventoryPacket{
 				if(ctx.get().getDirection().getReceptionSide().isClient()){
 //					System.out.println("Server to Client");
 					if(message.pos >= 0 && message.pos <= Resources.SLOT_NUM.max) {
-						PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(l -> l.setItemAt(ItemStack.of(message.data), message.pos, false));
+						PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(l -> l.setItemAt(ItemStack.of(message.data), message.pos, false));
 					} else {
 						if(message.data.contains(FLAG)) {
-							PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(l -> l.setCurrentPos(message.data.getInt(FLAG), false));
+							PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(l -> l.setCurrentPos(message.data.getInt(FLAG), false));
 						} else {
 							Static.LOGGER.error("Card Inventory Packet : receive wrong data !");
 						}

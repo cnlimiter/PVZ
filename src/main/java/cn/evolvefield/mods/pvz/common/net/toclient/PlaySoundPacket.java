@@ -1,6 +1,5 @@
 package cn.evolvefield.mods.pvz.common.net.toclient;
 
-import com.hungteen.pvz.PVZMod;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
@@ -29,8 +28,8 @@ public class PlaySoundPacket {
 		public static void onMessage(PlaySoundPacket message, Supplier<NetworkEvent.Context> ctx) {
 		    ctx.get().enqueueWork(()->{
 		    	SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(message.type));
-		    	if(sound != null && PVZMod.PROXY.getPlayer() != null) {
-		    		PVZMod.PROXY.getPlayer().playSound(sound, 1F, 1F);
+		    	if(sound != null && Static.PROXY.getPlayer() != null) {
+		    		Static.PROXY.getPlayer().playSound(sound, 1F, 1F);
 		    	}
 		    });
 		    ctx.get().setPacketHandled(true);

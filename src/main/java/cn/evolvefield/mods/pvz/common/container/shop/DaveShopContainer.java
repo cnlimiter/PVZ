@@ -1,7 +1,7 @@
 package cn.evolvefield.mods.pvz.common.container.shop;
 
 import cn.evolvefield.mods.pvz.api.enums.Resources;
-import cn.evolvefield.mods.pvz.common.container.ContainerRegister;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
 import cn.evolvefield.mods.pvz.common.entity.npc.AbstractDaveEntity;
 import cn.evolvefield.mods.pvz.init.registry.SoundRegister;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;

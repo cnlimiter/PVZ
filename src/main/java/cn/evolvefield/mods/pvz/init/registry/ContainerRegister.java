@@ -1,6 +1,7 @@
-package cn.evolvefield.mods.pvz.common.container;
+package cn.evolvefield.mods.pvz.init.registry;
 
 import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.common.container.*;
 import cn.evolvefield.mods.pvz.common.container.shop.DaveShopContainer;
 import cn.evolvefield.mods.pvz.common.container.shop.PennyShopContainer;
 import cn.evolvefield.mods.pvz.common.container.shop.SunShopContainer;
@@ -19,7 +20,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-@EventBusSubscriber(modid = PVZMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Static.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ContainerRegister {
 
 	public static final DeferredRegister<MenuType<?>> CONTAINER_TYPES = DeferredRegister.create(ForgeRegistries.MENU_TYPES, Static.MOD_ID);

@@ -4,7 +4,6 @@ import cn.evolvefield.mods.pvz.Static;
 import cn.evolvefield.mods.pvz.api.PVZAPI;
 import cn.evolvefield.mods.pvz.api.interfaces.types.IPAZType;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
-import com.hungteen.pvz.PVZMod;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -73,7 +72,7 @@ public class PAZStatsPacket {
                 switch (message.type){
                     case UNLOCK:{
                         ctx.get().enqueueWork(() -> {
-                            PlayerUtil.setPAZLock(PVZMod.PROXY.getPlayer(), paz.get(), message.is);
+                            PlayerUtil.setPAZLock(Static.PROXY.getPlayer(), paz.get(), message.is);
                         });
                         break;
                     }

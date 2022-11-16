@@ -1,6 +1,5 @@
 package cn.evolvefield.mods.pvz.common.net.toclient;
 
-import com.hungteen.pvz.PVZMod;
 import com.hungteen.pvz.client.particle.ParticleRegister;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.FriendlyByteBuf;
@@ -64,8 +63,8 @@ public class SpawnParticlePacket {
 		    	} else if(id == 9) {
 		    		particle = ParticleRegister.POP_CORN.get();
 		    	}
-		    	if(particle != null && PVZMod.PROXY.getPlayer() != null) {
-		    		PVZMod.PROXY.getPlayer().level.addParticle(particle, message.x, message.y, message.z, 0, 0, 0);
+		    	if(particle != null && Static.PROXY.getPlayer() != null) {
+		    		Static.PROXY.getPlayer().level.addParticle(particle, message.x, message.y, message.z, 0, 0, 0);
 		    	}
 		    });
 		    ctx.get().setPacketHandled(true);

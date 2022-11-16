@@ -78,7 +78,7 @@ public abstract class SummonCardItem extends Item {
 	public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		tooltip.add(Component.translatable("tooltip.pvz.card_sun_cost", getCardSunCost(stack)).withStyle(ChatFormatting.YELLOW));
 		tooltip.add(Component.translatable("tooltip.pvz.card_cd", Component.translatable(getCardCoolDown(stack).getTranslateKey()).getString()).withStyle(TextFormatting.AQUA));
-		PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(m -> {
+		PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(m -> {
 			//this paz type is locked.
 			if (m.isPAZLocked(this.type) && ! this.isEnjoyCard) {
 				tooltip.add(Component.translatable("tooltip.pvz.card_required_level", getCardRequiredLevel(stack)).withStyle(ChatFormatting.RED));

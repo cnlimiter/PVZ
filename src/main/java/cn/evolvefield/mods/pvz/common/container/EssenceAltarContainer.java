@@ -7,6 +7,7 @@ import cn.evolvefield.mods.pvz.common.item.material.EssenceItem;
 import cn.evolvefield.mods.pvz.common.item.spawn.card.ImitaterCardItem;
 import cn.evolvefield.mods.pvz.common.item.spawn.card.SummonCardItem;
 import cn.evolvefield.mods.pvz.common.tileentity.EssenceAltarTileEntity;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
 import cn.evolvefield.mods.pvz.utils.EntityUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;

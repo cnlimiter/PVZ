@@ -2,7 +2,6 @@ package cn.evolvefield.mods.pvz.common.net.toclient;
 
 import cn.evolvefield.mods.pvz.api.enums.PVZPacketTypes;
 import cn.evolvefield.mods.pvz.utils.PlayerUtil;
-import com.hungteen.pvz.PVZMod;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -47,13 +46,13 @@ public class OtherStatsPacket{
 				switch (message.type){
 					case WAVE:{
 						if(message.pos < 0){
-							PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setTotalWaveCount(message.data));
+							PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setTotalWaveCount(message.data));
 						} else{
-							PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setWaveTime(message.pos, message.data));
+							PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setWaveTime(message.pos, message.data));
 						}
 					}
 					case WAVE_FLAG:{
-						PlayerUtil.getOptManager(PVZMod.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setWaveTriggered(message.pos, message.flag));
+						PlayerUtil.getOptManager(Static.PROXY.getPlayer()).ifPresent(l -> l.getInvasion().setWaveTriggered(message.pos, message.flag));
 					}
 				}
 //			    if(message.type == 0) {

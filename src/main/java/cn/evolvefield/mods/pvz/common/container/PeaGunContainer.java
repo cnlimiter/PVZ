@@ -1,15 +1,17 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.PVZMod;
-import com.hungteen.pvz.common.item.ItemRegister;
-import com.hungteen.pvz.common.item.tool.plant.PeaGunItem;
-import com.hungteen.pvz.common.misc.tag.PVZItemTags;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.common.item.tool.plant.PeaGunItem;
+import cn.evolvefield.mods.pvz.init.misc.PVZItemTags;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
+import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class PeaGunContainer extends Container {
+public class PeaGunContainer extends AbstractContainerMenu {
 
 	private Container backpack;
 	private final Player player;
@@ -20,7 +22,7 @@ public class PeaGunContainer extends Container {
 		this.player = player;
 		this.stack = this.player.getOffhandItem();
 		if(stack.getItem() != ItemRegister.PEA_GUN.get()) {
-			PVZMod.LOGGER.debug("ERROR OFFHAND ITEM !");
+			Static.LOGGER.debug("ERROR OFFHAND ITEM !");
 			return ;
 		}
 		backpack = PeaGunItem.getInventory(stack);
@@ -38,7 +40,7 @@ public class PeaGunContainer extends Container {
 				this.addSlot(new Slot(backpack, j + i * 9 + 1, 8 + 18 * j, 45 + 18 * i) {
 					@Override
 					public boolean mayPlace(ItemStack stack) {
-						return stack.getItem().is(PVZItemTags.PEA_GUN_BULLETS);
+						return stack.is(PVZItemTags.PEA_GUN_BULLETS);
 					}
 				});
 			}
@@ -46,12 +48,12 @@ public class PeaGunContainer extends Container {
 
 		for(int i = 0;i < 3; ++ i) {
 			for(int j = 0; j < 9; ++ j) {
-				this.addSlot(new Slot(player.inventory, j + i * 9 + 9, 8 + 18 * j, 105 + 18 * i));
+				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + 18 * j, 105 + 18 * i));
 			}
 		}
 
 		for(int i = 0; i < 9; ++ i) {
-			this.addSlot(new Slot(player.inventory, i, 8 + 18 * i, 163));
+			this.addSlot(new Slot(player.getInventory(), i, 8 + 18 * i, 163));
 		}
 	}
 

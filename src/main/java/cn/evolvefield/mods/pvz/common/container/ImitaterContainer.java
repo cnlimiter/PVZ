@@ -1,14 +1,16 @@
 package cn.evolvefield.mods.pvz.common.container;
 
-import com.hungteen.pvz.PVZMod;
-import com.hungteen.pvz.common.item.ItemRegister;
-import com.hungteen.pvz.common.item.spawn.card.ImitaterCardItem;
-import net.minecraft.entity.player.Player;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
+import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.common.item.spawn.card.ImitaterCardItem;
+import cn.evolvefield.mods.pvz.init.registry.ContainerRegister;
+import cn.evolvefield.mods.pvz.init.registry.ItemRegister;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class ImitaterContainer extends Container {
+public class ImitaterContainer extends AbstractContainerMenu {
 
 	private Container backpack;
 	private final Player player;
@@ -19,7 +21,7 @@ public class ImitaterContainer extends Container {
 		this.player = player;
 		this.stack = this.player.getOffhandItem();
 		if(stack.getItem() != ItemRegister.IMITATER_CARD.get()) {
-			PVZMod.LOGGER.debug("ERROR OFFHAND ITEM !");
+			Static.LOGGER.debug("ERROR OFFHAND ITEM !");
 			return ;
 		}
 		this.backpack = ImitaterCardItem.getInventory(this.stack);
@@ -31,11 +33,11 @@ public class ImitaterContainer extends Container {
 		});//special slots
 		for(int i = 0; i < 3; ++ i) {
 			for(int j = 0; j < 9; ++ j) {
-				this.addSlot(new Slot(player.inventory, j + i * 9 + 9, 8 + 18 * j, 51 + 18 * i));
+				this.addSlot(new Slot(player.getInventory(), j + i * 9 + 9, 8 + 18 * j, 51 + 18 * i));
 			}
 		}
 		for(int i = 0; i < 9; ++ i) {
-			this.addSlot(new Slot(player.inventory, i, 8 + 18 * i, 109));
+			this.addSlot(new Slot(player.getInventory(), i, 8 + 18 * i, 109));
 		}
 	}
 
