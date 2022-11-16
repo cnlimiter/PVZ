@@ -1,4 +1,4 @@
-package cn.evolvefield.mods.pvz.common.enchantment;
+package cn.evolvefield.mods.pvz.init.registry;
 
 import cn.evolvefield.mods.pvz.Static;
 import cn.evolvefield.mods.pvz.common.enchantment.card.BandageEnchantment;

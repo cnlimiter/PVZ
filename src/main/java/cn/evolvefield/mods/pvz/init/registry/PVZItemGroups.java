@@ -1,6 +1,6 @@
 package cn.evolvefield.mods.pvz.init.registry;
 
-import cn.evolvefield.mods.pvz.common.enchantment.PVZEnchantmentTypes;
+import cn.evolvefield.mods.pvz.init.misc.PVZEnchantmentTypes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 

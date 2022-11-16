@@ -1,10 +1,16 @@
 package cn.evolvefield.mods.pvz.common.entity;
 
+import cn.evolvefield.mods.pvz.api.enums.PAZAlmanacs;
 import cn.evolvefield.mods.pvz.api.interfaces.base.IAlmanacEntry;
 import cn.evolvefield.mods.pvz.api.interfaces.paz.IPAZEntity;
 import cn.evolvefield.mods.pvz.api.interfaces.types.IRankType;
 import cn.evolvefield.mods.pvz.api.interfaces.types.ISkillType;
+import cn.evolvefield.mods.pvz.common.advancement.trigger.CharmZombieTrigger;
+import cn.evolvefield.mods.pvz.common.entity.misc.bowling.AbstractBowlingEntity;
+import cn.evolvefield.mods.pvz.common.entity.zombie.roof.BungeeZombieEntity;
 import cn.evolvefield.mods.pvz.common.impl.SkillTypes;
+import cn.evolvefield.mods.pvz.common.misc.PVZEntityDamageSource;
+import cn.evolvefield.mods.pvz.init.config.PVZConfig;
 import cn.evolvefield.mods.pvz.init.registry.PVZAttributes;
 import cn.evolvefield.mods.pvz.utils.EntityUtil;
 import cn.evolvefield.mods.pvz.utils.MathUtil;
@@ -18,6 +24,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -203,9 +210,6 @@ public abstract class AbstractPAZEntity  extends PathfinderMob implements IPAZEn
         return EntityGroupHander.isMonsterGroup(this.getEntityGroupType());
     }
 
-    /**
-     * {@link PVZLivingEvents#onLivingHurt(LivingHurtEvent)}
-     */
     public static void damageOuterDefence(final LivingHurtEvent ev) {
         float amount = ev.getAmount();
         if(ev.getEntity() instanceof AbstractPAZEntity && ((AbstractPAZEntity) ev.getEntity()).canOuterDefend(ev.getSource())){
@@ -226,9 +230,6 @@ public abstract class AbstractPAZEntity  extends PathfinderMob implements IPAZEn
         ev.setAmount(amount == 0 ? 0.000001F : amount);
     }
 
-    /**
-     * {@link PVZLivingEvents#onLivingDamage(LivingDamageEvent)}
-     */
     public static void damageInnerDefence(final LivingDamageEvent ev) {
         float amount = ev.getAmount();
         if(ev.getEntity() instanceof AbstractPAZEntity){
@@ -342,7 +343,7 @@ public abstract class AbstractPAZEntity  extends PathfinderMob implements IPAZEn
                         this.getRandomZ(1.0D), d0, d1, d2);
             }
             this.onRemoveWhenDeath();
-            this.remove();
+            this.remove(RemovalReason.KILLED);
         }
     }
 
@@ -533,12 +534,12 @@ public abstract class AbstractPAZEntity  extends PathfinderMob implements IPAZEn
                 ownerUuid = compound.getUUID("OwnerUUID");
             } else {
                 String s1 = compound.getString("OwnerUUID");
-                ownerUuid = PreYggdrasilConverter.convertMobOwnerIfNecessary(this.getServer(), s1);
+                ownerUuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s1);
             }
             if (ownerUuid != null) {
                 try {
                     this.setOwnerUUID(ownerUuid);
-                } catch (Throwable var4) {
+                } catch (Throwable ignored) {
                 }
             }
         }

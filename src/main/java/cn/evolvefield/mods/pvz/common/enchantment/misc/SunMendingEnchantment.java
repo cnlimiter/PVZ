@@ -1,6 +1,6 @@
 package cn.evolvefield.mods.pvz.common.enchantment.misc;
 
-import cn.evolvefield.mods.pvz.common.enchantment.EnchantmentRegister;
+import cn.evolvefield.mods.pvz.init.registry.EnchantmentRegister;
 import cn.evolvefield.mods.pvz.common.enchantment.PVZEnchantment;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;

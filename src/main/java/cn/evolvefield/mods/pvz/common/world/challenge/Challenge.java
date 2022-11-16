@@ -273,7 +273,7 @@ public class Challenge implements IChallenge {
     /**
      * player who is alive and in suitable range can be tracked.
      */
-    private Predicate<ServerPlayerEntity> validPlayer() {
+    private Predicate<ServerPlayer> validPlayer() {
         return (player) -> {
             final int range = ConfigUtil.getRaidRange();
             return player.isAlive() && Math.abs(player.getX() - this.center.getX()) < range
@@ -286,8 +286,8 @@ public class Challenge implements IChallenge {
      * {@link #tickBar()}
      */
     protected void updatePlayers() {
-        final Set<ServerPlayerEntity> oldPlayers = Sets.newHashSet(this.challengeBar.getPlayers());
-        final Set<ServerPlayerEntity> newPlayers = Sets.newHashSet(this.world.getPlayers(this.validPlayer()));
+        final Set<ServerPlayer> oldPlayers = Sets.newHashSet(this.challengeBar.getPlayers());
+        final Set<ServerPlayer> newPlayers = Sets.newHashSet(this.world.getPlayers(this.validPlayer()));
 
         /* add new join players */
         newPlayers.forEach(p -> {
@@ -315,7 +315,7 @@ public class Challenge implements IChallenge {
             if(! this.isStopping()) {
                 ++ this.stopTick;
                 this.heroes.forEach(uuid -> {
-                    PlayerEntity player = this.world.getPlayerByUUID(uuid);
+                    Player player = this.world.getPlayerByUUID(uuid);
                     if(player != null) {
                         PlayerUtil.sendMsgTo(player, CHALLENGE_WARN);
                     }
@@ -446,7 +446,7 @@ public class Challenge implements IChallenge {
     /**
      * get tracked players by raid bar.
      */
-    public List<ServerPlayerEntity> getPlayers(){
+    public List<ServerPlayer> getPlayers(){
         return this.challengeBar.getPlayers().stream().collect(Collectors.toList());
     }
 

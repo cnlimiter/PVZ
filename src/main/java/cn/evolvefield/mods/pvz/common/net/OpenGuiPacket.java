@@ -23,7 +23,7 @@ public class OpenGuiPacket {
 
 	public static class Handler {
 		public static void onMessage(OpenGuiPacket message, Supplier<NetworkEvent.Context> ctx) {
-//			final ServerPlayerEntity player = ctx.get().getSender();
+//			final ServerPlayer player = ctx.get().getSender();
 //			ctx.get().enqueueWork(() -> {
 //				switch (Guis.values()[message.type]) {
 //				case PLAYER_INVENTORY: {
@@ -31,7 +31,7 @@ public class OpenGuiPacket {
 //
 //						@Override
 //						public Container createMenu(int p_createMenu_1_, PlayerInventory p_createMenu_2_,
-//								PlayerEntity p_createMenu_3_) {
+//								Player p_createMenu_3_) {
 //							return new PlayerInventoryContainer(p_createMenu_1_, p_createMenu_3_);
 //						}
 //

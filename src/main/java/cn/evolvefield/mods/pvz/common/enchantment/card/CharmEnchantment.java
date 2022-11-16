@@ -1,7 +1,7 @@
 package cn.evolvefield.mods.pvz.common.enchantment.card;
 
 import cn.evolvefield.mods.pvz.common.enchantment.PVZEnchantment;
-import cn.evolvefield.mods.pvz.common.enchantment.PVZEnchantmentTypes;
+import cn.evolvefield.mods.pvz.init.misc.PVZEnchantmentTypes;
 import net.minecraft.world.entity.EquipmentSlot;
 
 public class CharmEnchantment extends PVZEnchantment {

@@ -291,7 +291,7 @@ public abstract class PVZPlantEntity  extends AbstractPAZEntity implements IPlan
 
     /**
      * check can zombie add effect.
-     * {@link EntityUtil#addPotionEffect(Entity, EffectInstance)}
+     * {@link EntityUtil#addPotionEffect(Entity, MobEffectInstance)}
      */
     public void checkAndAddPotionEffect(MobEffectInstance effect) {
         if (effect.getEffect() == EffectRegister.COLD_EFFECT.get() && !this.canBeCold()) {
@@ -479,7 +479,7 @@ public abstract class PVZPlantEntity  extends AbstractPAZEntity implements IPlan
     }
 
     /**
-     * {@link PlantCardItem#checkSunAndOuterPlant(PlayerEntity, PVZPlantEntity, PlantCardItem, ItemStack)}
+     * {@link PlantCardItem#checkSunAndOuterPlant(Player, PVZPlantEntity, PlantCardItem, ItemStack)}
      */
     public void onPlaceOuterPlant(IPlantType type, int sunCost) {
         if(type.isOuterPlant()) {
@@ -492,7 +492,7 @@ public abstract class PVZPlantEntity  extends AbstractPAZEntity implements IPlan
     }
 
     /**
-     * {@link PlantCardItem#checkSunAndHealPlant(PlayerEntity, PVZPlantEntity, PlantCardItem, ItemStack)}
+     * {@link PlantCardItem#checkSunAndHealPlant(Player, PVZPlantEntity, PlantCardItem, ItemStack)}
      */
     public void onHealBy(IPlantType plantType, float percent) {
         if(plantType.isOuterPlant()){
@@ -527,7 +527,7 @@ public abstract class PVZPlantEntity  extends AbstractPAZEntity implements IPlan
         // keep sleep of plant
         plantEntity.sleepTime = this.sleepTime;
         // remove old plant itself
-        this.remove();
+        this.remove(RemovalReason.KILLED);
     }
 
     @Override

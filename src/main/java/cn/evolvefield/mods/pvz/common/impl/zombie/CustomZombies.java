@@ -3,6 +3,8 @@ package cn.evolvefield.mods.pvz.common.impl.zombie;
 import cn.evolvefield.mods.pvz.Static;
 import cn.evolvefield.mods.pvz.api.interfaces.types.IZombieType;
 import cn.evolvefield.mods.pvz.common.impl.RankTypes;
+import cn.evolvefield.mods.pvz.init.misc.PVZLoot;
+import cn.evolvefield.mods.pvz.init.registry.EntityRegister;
 
 import java.util.ArrayList;
 import java.util.Arrays;

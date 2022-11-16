@@ -18,7 +18,7 @@ public class EdgarDollItem extends Item {
 
 //	@Override
 //	public ActionResultType useOn(ItemUseContext context) {
-//		final PlayerEntity player = context.getPlayer();
+//		final Player player = context.getPlayer();
 //		final World world = context.getLevel();
 //		final BlockPos pos = context.getClickedPos();
 //		if(! world.isClientSide && ! player.getCooldowns().isOnCooldown(this) && context.getClickedFace() == Direction.UP) {

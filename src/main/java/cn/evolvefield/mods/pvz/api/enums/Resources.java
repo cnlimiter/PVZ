@@ -43,7 +43,7 @@ public enum Resources {
     ;
 
     /**
-     * {@link PlayerDataManager#PlayerDataManager(net.minecraft.entity.player.PlayerEntity)}
+     * {@link PlayerDataManager#PlayerDataManager(net.minecraft.entity.player.Player)}
      */
     public static int getInitialValue(Resources res) {
         return switch (res) {

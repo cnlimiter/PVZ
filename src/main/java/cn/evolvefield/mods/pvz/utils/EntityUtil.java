@@ -1,41 +1,31 @@
 package cn.evolvefield.mods.pvz.utils;
 
 import cn.evolvefield.mods.pvz.Static;
+import cn.evolvefield.mods.pvz.api.enums.PVZGroupType;
 import cn.evolvefield.mods.pvz.api.interfaces.base.ICanBeCharmed;
 import cn.evolvefield.mods.pvz.api.interfaces.base.IHasGroup;
 import cn.evolvefield.mods.pvz.api.interfaces.base.IHasOwner;
-import com.hungteen.pvz.api.enums.PVZGroupType;
-import com.hungteen.pvz.common.entity.AbstractPAZEntity;
-import com.hungteen.pvz.common.entity.EntityGroupHander;
-import com.hungteen.pvz.common.entity.PVZAttributes;
-import com.hungteen.pvz.common.entity.PVZMultiPartEntity;
-import com.hungteen.pvz.common.entity.ai.goal.attack.PVZZombieAttackGoal;
-import com.hungteen.pvz.common.entity.bullet.AbstractBulletEntity;
-import com.hungteen.pvz.common.entity.misc.LawnMowerEntity;
-import com.hungteen.pvz.common.entity.plant.PVZPlantEntity;
-import com.hungteen.pvz.common.entity.plant.assist.BloverEntity;
-import com.hungteen.pvz.common.entity.plant.magic.StrangeCatEntity;
-import com.hungteen.pvz.common.entity.zombie.PVZZombieEntity;
-import com.hungteen.pvz.common.entity.zombie.base.AbstractBossZombieEntity;
-import com.hungteen.pvz.common.entity.zombie.grass.PoleZombieEntity;
-import com.hungteen.pvz.common.entity.zombie.pool.BalloonZombieEntity;
-import com.hungteen.pvz.common.entity.zombie.pool.BobsleTeamEntity;
-import com.hungteen.pvz.common.event.handler.LivingEventHandler;
-import com.hungteen.pvz.common.misc.PVZEntityDamageSource;
-import com.hungteen.pvz.common.network.PVZPacketHandler;
-import com.hungteen.pvz.common.network.toclient.SpawnParticlePacket;
-import com.hungteen.pvz.common.potion.EffectRegister;
-import com.hungteen.pvz.compat.jade.provider.PVZEntityProvider;
-import com.hungteen.pvz.utils.interfaces.IHasMultiPart;
+import cn.evolvefield.mods.pvz.api.interfaces.util.IHasMultiPart;
+import cn.evolvefield.mods.pvz.common.entity.AbstractPAZEntity;
+import cn.evolvefield.mods.pvz.common.entity.EntityGroupHander;
+import cn.evolvefield.mods.pvz.common.entity.PVZMultiPartEntity;
+import cn.evolvefield.mods.pvz.common.entity.plant.PVZPlantEntity;
+import cn.evolvefield.mods.pvz.common.entity.zombie.PVZZombieEntity;
+import cn.evolvefield.mods.pvz.common.entity.zombie.base.AbstractBossZombieEntity;
+import cn.evolvefield.mods.pvz.common.entity.zombie.grass.PoleZombieEntity;
+import cn.evolvefield.mods.pvz.common.entity.zombie.pool.BalloonZombieEntity;
+import cn.evolvefield.mods.pvz.common.misc.PVZEntityDamageSource;
+import cn.evolvefield.mods.pvz.common.net.PVZPacketHandler;
+import cn.evolvefield.mods.pvz.common.net.toclient.SpawnParticlePacket;
+import cn.evolvefield.mods.pvz.init.registry.EffectRegister;
+import cn.evolvefield.mods.pvz.init.registry.PVZAttributes;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.entity.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.math.*;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -107,7 +97,7 @@ public class EntityUtil {
 		if(entity instanceof PVZZombieEntity) {
 			return ((PVZZombieEntity) entity).canZombieBeRemoved();
 		}
-		if(!entity.getType().getRegistryName().getNamespace().equals(Static.MOD_ID)
+		if(!ForgeRegistries.ENTITY_TYPES.getKey(entity.getType()).getNamespace().equals(Static.MOD_ID)
 				&& (entity instanceof LivingEntity)) {
 			return ((LivingEntity) entity).getMaxHealth() <= 20F;
 		}
@@ -225,7 +215,7 @@ public class EntityUtil {
 	 */
 	public static boolean isEntityBoss(@Nonnull LivingEntity entity) {
 		if(entity instanceof AbstractPAZEntity) {
-			if(entity instanceof PVZZombieEntity) {
+			if(entity instanceof PVZZombieEntity mo) {
 			    return (entity instanceof AbstractBossZombieEntity);
 		    }
 		    if(entity instanceof PVZPlantEntity) {
@@ -263,7 +253,7 @@ public class EntityUtil {
 	 */
 	public static boolean canDestroyBlock(Level world, BlockPos pos, BlockState state, Entity entity) {
 		float hardness = state.getDestroySpeed(world, pos);
-		return hardness >= 0f && hardness < 50f && !state.getBlock().isAir(state, world, pos)
+		return hardness >= 0f && hardness < 50f && !state.getBlock().defaultBlockState().isAir()
 				&& state.getBlock().canEntityDestroy(state, world, pos, entity) && (!(entity instanceof LivingEntity)
 				|| ForgeEventFactory.onEntityDestroyBlock((LivingEntity) entity, pos, state));
 	}
@@ -362,8 +352,8 @@ public class EntityUtil {
 	@Nullable
 	public static Player getEntityOwner(Level world, @Nullable Entity entity) {
 		UUID uuid = null;
-		if(entity instanceof IHasOwner) {
-			uuid = ((IHasOwner) entity).getOwnerUUID().orElse(null);
+		if(entity instanceof IHasOwner owner) {
+			uuid = owner.getOwnerUUID().orElse(null);
 		}
 		return uuid == null ? null : world.getPlayerByUUID(uuid);
 	}
@@ -372,15 +362,15 @@ public class EntityUtil {
 	 * use for TargetGoal to check if attacker can set target as AttackTarget.
 	 */
 	public static boolean canTargetEntity(Entity attacker, Entity target) {
-		if(attacker instanceof AbstractPAZEntity) {
-			return ((AbstractPAZEntity) attacker).checkCanPAZTarget(target);
+		if(attacker instanceof AbstractPAZEntity abstractPAZEntity) {
+			return abstractPAZEntity.checkCanPAZTarget(target);
 		}
 		return checkCanEntityBeTarget(attacker, target);
 	}
 
 	public static boolean canAttackEntity(Entity attacker, Entity target) {
-		if(attacker instanceof AbstractPAZEntity) {
-			return ((AbstractPAZEntity) attacker).checkCanPAZAttack(target);
+		if(attacker instanceof AbstractPAZEntity abstractPAZEntity) {
+			return abstractPAZEntity.checkCanPAZAttack(target);
 		}
 		return checkCanEntityBeAttack(attacker, target);
 	}
@@ -562,12 +552,12 @@ public class EntityUtil {
 	 */
 	public static List<Integer> getOwnerAndPartsID(Entity entity){
 		List<Integer> list = new ArrayList<>();
-		if(entity instanceof PVZMultiPartEntity) {//the entity is a part.
-			LivingEntity owner = ((PVZMultiPartEntity) entity).getOwner();
+		if(entity instanceof PVZMultiPartEntity p) {//the entity is a part.
+			LivingEntity owner = p.getOwner();
 			if(owner == null) {// no owner
 				list.add(entity.getId());
 			} else {// get all id for owner's parts
-				IHasMultiPart parent = ((PVZMultiPartEntity) entity).getParent();
+				IHasMultiPart parent = p.getParent();
 				for(Entity target : parent.getMultiParts()) {
 				    if(target != null) {
 				    	list.add(target.getId());
@@ -575,8 +565,8 @@ public class EntityUtil {
 				}
 				list.add(owner.getId());
 			}
-		} else if(entity instanceof IHasMultiPart){
-			for(Entity target : ((IHasMultiPart) entity).getMultiParts()) {
+		} else if(entity instanceof IHasMultiPart multiPart){
+			for(Entity target : multiPart.getMultiParts()) {
 			    if(target != null) {
 			    	list.add(target.getId());
 			    }
@@ -632,16 +622,14 @@ public class EntityUtil {
 		if(entity instanceof FlyingMob || entity instanceof Bat) {
 			return true;
 		}
-		if(entity instanceof BalloonZombieEntity && ((BalloonZombieEntity) entity).hasBalloon()) {
+		if(entity instanceof BalloonZombieEntity entity1 && entity1.hasBalloon()) {
 			return true;
 		}
 		return ! entity.isOnGround() && ! entity.isInWater() && ! entity.isInLava();
 	}
 
 	public static boolean hasNearBy(Level world, BlockPos pos, double r, Predicate<Entity> pre) {
-		return world.getEntitiesOfClass(Entity.class, BlockUtil.getAABB(pos, r, r)).stream().filter(target -> {
-			return pre.test(target);
-		}).count() > 0;
+		return world.getEntitiesOfClass(Entity.class, BlockUtil.getAABB(pos, r, r)).stream().anyMatch(pre);
 	}
 
 	/**

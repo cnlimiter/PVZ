@@ -1,5 +1,10 @@
 package cn.evolvefield.mods.pvz.common.misc;
 
+import cn.evolvefield.mods.pvz.common.entity.bullet.*;
+import cn.evolvefield.mods.pvz.common.entity.bullet.itembullet.CabbageEntity;
+import cn.evolvefield.mods.pvz.common.entity.bullet.itembullet.MetalItemEntity;
+import cn.evolvefield.mods.pvz.common.entity.bullet.itembullet.PeaEntity;
+import cn.evolvefield.mods.pvz.common.entity.bullet.itembullet.SporeEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.EntityDamageSource;
@@ -177,9 +182,7 @@ public class PVZEntityDamageSource extends EntityDamageSource {
         return causeFlameDamage(attacker, attacker);
     }
 
-    /**
-     * {@link SquashEntity#isPlantImmuneTo(DamageSource)}
-     */
+
     public static boolean isEnforceDamage(DamageSource source) {
         return ! source.isProjectile() && ! source.isMagic() && ! source.isExplosion() && ! source.isFire();
     }

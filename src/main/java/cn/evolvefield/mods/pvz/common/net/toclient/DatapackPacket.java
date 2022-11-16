@@ -1,5 +1,8 @@
 package cn.evolvefield.mods.pvz.common.net.toclient;
 
+import cn.evolvefield.mods.pvz.common.datapack.ChallengeTypeLoader;
+import cn.evolvefield.mods.pvz.common.datapack.LotteryTypeLoader;
+import cn.evolvefield.mods.pvz.common.datapack.TransactionTypeLoader;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.hungteen.pvz.common.datapack.ChallengeTypeLoader;

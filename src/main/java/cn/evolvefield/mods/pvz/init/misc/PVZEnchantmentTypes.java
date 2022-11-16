@@ -1,4 +1,4 @@
-package cn.evolvefield.mods.pvz.common.enchantment;
+package cn.evolvefield.mods.pvz.init.misc;
 
 import cn.evolvefield.mods.pvz.common.item.spawn.card.PlantCardItem;
 import cn.evolvefield.mods.pvz.common.item.spawn.card.SummonCardItem;
